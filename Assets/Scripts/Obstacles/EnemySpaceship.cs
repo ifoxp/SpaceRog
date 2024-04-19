@@ -12,7 +12,7 @@ public class EnemySpaceship : NetworkBehaviour
     private Rigidbody2D rb;                     // Rigidbody2D компонент ворожого корабля
     private Vector2 targetPosition;             // Позиція, до якої корабель рухається
     private float timer = 1.75f;                // Таймер для контролю стрільби
-    private Transform player;                   // Посилання на об'єкт гравця
+    public Transform player;                   // Посилання на об'єкт гравця
     [SerializeField] private float speedRotate = 5f;   // Швидкість обертання корабля
     private float screenWidth, screenHeight;
     private float visibleWidth, visibleHeight;

@@ -95,10 +95,10 @@ GameObject:
   - component: {fileID: 6020792664247655209}
   - component: {fileID: 6020792664247655210}
   - component: {fileID: 6020792664247655204}
+  - component: {fileID: -2013420570398082152}
   - component: {fileID: 7734969560788362434}
   - component: {fileID: 6020792664247655211}
   - component: {fileID: -3259541626067039216}
-  - component: {fileID: -2013420570398082152}
   m_Layer: 0
   m_Name: Enemy A 1
   m_TagString: Enemy
@@ -190,6 +190,27 @@ CapsuleCollider2D:
   m_Offset: {x: -0.8, y: 2.9}
   m_Size: {x: 60, y: 60}
   m_Direction: 1
+--- !u!114 &-2013420570398082152
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6020792664247655208}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  GlobalObjectIdHash: 2742536954
+  InScenePlacedSourceGlobalObjectIdHash: 0
+  AlwaysReplicateAsRoot: 0
+  SynchronizeTransform: 1
+  ActiveSceneSynchronization: 0
+  SceneMigrationSynchronization: 1
+  SpawnWithObservers: 1
+  DontDestroyWithOwner: 0
+  AutoObjectParentSync: 1
 --- !u!114 &7734969560788362434
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -252,24 +273,3 @@ MonoBehaviour:
   x2: 6.666667
   baseScale: 0.015
   PlusMinus: -1
---- !u!114 &-2013420570398082152
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6020792664247655208}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  GlobalObjectIdHash: 0
-  InScenePlacedSourceGlobalObjectIdHash: 0
-  AlwaysReplicateAsRoot: 0
-  SynchronizeTransform: 1
-  ActiveSceneSynchronization: 0
-  SceneMigrationSynchronization: 1
-  SpawnWithObservers: 1
-  DontDestroyWithOwner: 0
-  AutoObjectParentSync: 1

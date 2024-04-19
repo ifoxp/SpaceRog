@@ -65,6 +65,7 @@ public class GameManager : MonoBehaviour
         if (!loseWindow.gameObject.activeSelf)
         {
             pause.gameObject.SetActive(true);
+            if(SceneManager.GetActiveScene().buildIndex != 8)
             Time.timeScale = 0;
         }
     }

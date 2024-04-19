@@ -5080,6 +5080,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5961949850490885895}
   - component: {fileID: 5961949850490885896}
+  - component: {fileID: 5961949850490885897}
   - component: {fileID: 5961949850490885892}
   m_Layer: 0
   m_Name: Spawner
@@ -5087,7 +5088,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &5961949850490885892
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5105,11 +5106,11 @@ MonoBehaviour:
   Hard: 0
   PipePrefabs:
   - {fileID: 6020792664247655208, guid: c4c815e4e16f1cc4589075d0bd78306e, type: 3}
-  - {fileID: 6020792664247655208, guid: f77fdb3aaa21cf64d8f7f3db80c6974b, type: 3}
-  - {fileID: 4059224369551860092, guid: d045097d1d2993943a13c78821e4a704, type: 3}
   - {fileID: 6020792664247655208, guid: c4c815e4e16f1cc4589075d0bd78306e, type: 3}
-  - {fileID: 4059224369551860092, guid: 6540792207cf9964986b4ee358540620, type: 3}
+  - {fileID: 6020792664247655208, guid: c4c815e4e16f1cc4589075d0bd78306e, type: 3}
+  - {fileID: 6020792664247655208, guid: c4c815e4e16f1cc4589075d0bd78306e, type: 3}
   - {fileID: 6020792664247655208, guid: b06fa4aba1b8ed34f8c681b08a73360d, type: 3}
+  - {fileID: 4059224369551860092, guid: 6540792207cf9964986b4ee358540620, type: 3}
   - {fileID: 6020792664247655208, guid: 510b878093742fd40a30bf64d92761c0, type: 3}
   - {fileID: 6020792664247655208, guid: 8ec7b21d31b4c2447a893521eb2430a2, type: 3}
   - {fileID: 4059224369551860092, guid: 84b58ba84fc079f48865064010371dc1, type: 3}
@@ -5121,6 +5122,9 @@ MonoBehaviour:
   Timer: 4
   HardTime: 60
   WhyTimeMinus: 0.017
+  spawnBuff: {fileID: 5961949851978761497}
+  spawnObstacles: {fileID: 5961949850490885897}
+  whoSpawn: 0
 --- !u!224 &5961949850490885895
 RectTransform:
   m_ObjectHideFlags: 0
@@ -5162,6 +5166,31 @@ MonoBehaviour:
   SpawnWithObservers: 1
   DontDestroyWithOwner: 0
   AutoObjectParentSync: 1
+--- !u!114 &5961949850490885897
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5961949850490885890}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c346348efa731ad4394b6d91474665ac, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  PipePrefabs:
+  - {fileID: 6020792664247655208, guid: c4c815e4e16f1cc4589075d0bd78306e, type: 3}
+  - {fileID: 6020792664247655208, guid: c4c815e4e16f1cc4589075d0bd78306e, type: 3}
+  - {fileID: 6020792664247655208, guid: c4c815e4e16f1cc4589075d0bd78306e, type: 3}
+  - {fileID: 6020792664247655208, guid: c4c815e4e16f1cc4589075d0bd78306e, type: 3}
+  - {fileID: 6020792664247655208, guid: b06fa4aba1b8ed34f8c681b08a73360d, type: 3}
+  - {fileID: 4059224369551860092, guid: 6540792207cf9964986b4ee358540620, type: 3}
+  - {fileID: 6020792664247655208, guid: 510b878093742fd40a30bf64d92761c0, type: 3}
+  - {fileID: 6020792664247655208, guid: 8ec7b21d31b4c2447a893521eb2430a2, type: 3}
+  - {fileID: 4059224369551860092, guid: 84b58ba84fc079f48865064010371dc1, type: 3}
+  - {fileID: 6020792664247655208, guid: 510b878093742fd40a30bf64d92761c0, type: 3}
+  - {fileID: 6020792664247655208, guid: 6e81d2ffbb5273f448b132b36adb6d6c, type: 3}
+  - {fileID: 4059224369551860092, guid: 19fe55471b16d0347bbc9bf8c3c0a83c, type: 3}
 --- !u!224 &5961949850519020242
 RectTransform:
   m_ObjectHideFlags: 0
@@ -8450,6 +8479,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5961949851978761495}
   - component: {fileID: 5961949851978761496}
+  - component: {fileID: 5961949851978761497}
   - component: {fileID: 5961949851978761494}
   m_Layer: 0
   m_Name: Spawner Buff
@@ -8474,16 +8504,19 @@ MonoBehaviour:
   Rannd: 4
   Hard: 0
   PipePrefabs:
-  - {fileID: 2059573295584454272, guid: 8e649965244ffda41904c46ce8f06214, type: 3}
+  - {fileID: 1942656283059756227, guid: ff4035ee9777fd447818374a11b0550c, type: 3}
   - {fileID: 2059573295584454272, guid: 8e649965244ffda41904c46ce8f06214, type: 3}
   - {fileID: 7406368532064183855, guid: d55f5b82ef7c6b24faeeba0c8ec251fc, type: 3}
   - {fileID: 1942656283059756227, guid: 3338915a148e2c740a22573b1af4e458, type: 3}
-  - {fileID: 7406368532064183855, guid: d55f5b82ef7c6b24faeeba0c8ec251fc, type: 3}
+  - {fileID: 1942656283059756227, guid: ff4035ee9777fd447818374a11b0550c, type: 3}
   WhereSpawn: {fileID: 1977925924}
   superHard: 1
   Timer: 10
   HardTime: 0
   WhyTimeMinus: 0
+  spawnBuff: {fileID: 5961949851978761497}
+  spawnObstacles: {fileID: 0}
+  whoSpawn: 1
 --- !u!224 &5961949851978761495
 RectTransform:
   m_ObjectHideFlags: 0
@@ -8525,6 +8558,24 @@ MonoBehaviour:
   SpawnWithObservers: 1
   DontDestroyWithOwner: 0
   AutoObjectParentSync: 1
+--- !u!114 &5961949851978761497
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5961949851978761492}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 432d3ede5c5eb824587213f66b209521, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  PipePrefabs:
+  - {fileID: 1942656283059756227, guid: ff4035ee9777fd447818374a11b0550c, type: 3}
+  - {fileID: 2059573295584454272, guid: 8e649965244ffda41904c46ce8f06214, type: 3}
+  - {fileID: 7406368532064183855, guid: d55f5b82ef7c6b24faeeba0c8ec251fc, type: 3}
+  - {fileID: 1942656283059756227, guid: 3338915a148e2c740a22573b1af4e458, type: 3}
+  - {fileID: 1942656283059756227, guid: ff4035ee9777fd447818374a11b0550c, type: 3}
 --- !u!222 &5961949851998493889
 CanvasRenderer:
   m_ObjectHideFlags: 0

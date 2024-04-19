@@ -8,17 +8,17 @@ public class EnemyNewcomers : NetworkBehaviour
     [SerializeField] private int health = 2;  // Кількість життя
     [SerializeField] private GameObject explosionPrefab;  // Префаб вибуху
     private Rigidbody2D rb;                     // Rigidbody2D компонент ворожого корабля
-    private Vector2 targetPosition;             // Позиція, до якої корабель рухається
+    public Vector2 targetPosition;             // Позиція, до якої корабель рухається
     private float timer = 1.75f;                // Таймер для контролю стрільби
-    private Transform player;                   // Посилання на об'єкт гравця
-    [SerializeField] private float speedRotate = 5f;   // Швидкість обертання корабля
+    public Transform player;                   // Посилання на об'єкт гравця
+    public float speedRotate = 5f;   // Швидкість обертання корабля
     private float screenWidth, screenHeight;
     private float visibleWidth, visibleHeight;
 
-    [SerializeField] private float speedHorizontal;    // Швидкість руху корабля по горизонталі
-    [SerializeField] private float speedVertical;      // Швидкість руху корабля по вертикалі
+    public float speedHorizontal;    // Швидкість руху корабля по горизонталі
+    public float speedVertical;      // Швидкість руху корабля по вертикалі
 
-    [SerializeField] private GameObject enemy;         // Сам корабель (потрібний для вимкнення коллайдера при старті)
+    public GameObject enemy;         // Сам корабель (потрібний для вимкнення коллайдера при старті)
     [SerializeField] private int scoreForDead = 3;     // Кількість очок, які гравець отримує за знищення ворога
     [SerializeField] private int maxMoneyForDead = 2;     // Кількість грошей, які гравець отримує за знищення ворога
     [SerializeField] private Transform enemyR;         // Transform компонент корабля, що відповідає за його обертання
@@ -30,28 +30,33 @@ public class EnemyNewcomers : NetworkBehaviour
 
     [SerializeField] private AudioClip deathSound;
     [SerializeField] private AudioSource gunshotAudioSource;
+
+
+    public bool isClient=false;
     private void Start()
     {
         float[] IndexD = new float[3];
-        if (PlayerPrefs.GetInt("Difficult") == 0)
+        if (!isClient)
         {
-            IndexD[0] = -1;
-            IndexD[1] = -1.5f;
-            IndexD[2] = -1.5f;
+            if (PlayerPrefs.GetInt("Difficult") == 0)
+            {
+                IndexD[0] = -1;
+                IndexD[1] = -1.5f;
+                IndexD[2] = -1.5f;
+            }
+            else if (PlayerPrefs.GetInt("Difficult") == 2)
+            {
+                IndexD[0] = 1;
+                IndexD[1] = 1.5f;
+                IndexD[2] = 1.5f;
+            }
+            else
+            {
+                IndexD[0] = 0;
+                IndexD[1] = 0;
+                IndexD[2] = 0;
+            }
         }
-        else if (PlayerPrefs.GetInt("Difficult") == 2)
-        {
-            IndexD[0] = 1;
-            IndexD[1] = 1.5f;
-            IndexD[2] = 1.5f;
-        }
-        else
-        {
-            IndexD[0] = 0;
-            IndexD[1] = 0;
-            IndexD[2] = 0;
-        }
-
         speedRotate += IndexD[0];
         speedHorizontal += IndexD[1];
         speedVertical += IndexD[2];
@@ -59,21 +64,29 @@ public class EnemyNewcomers : NetworkBehaviour
         // Отримуємо посилання на об'єкт класу Spawner
         spawner = FindObjectOfType<Spawner>();
         rb = GetComponent<Rigidbody2D>();                     // Отримуємо посилання на Rigidbody2D
+        
         player = GameObject.FindGameObjectWithTag("Player").transform;   // Отримуємо посилання на гравця за тегом "Player"
+        if (isClient)
+        {
+            RandomPlayerAgr arg = GetComponent<RandomPlayerAgr>();
+            InvokeRepeating("arg.ChangePlayer(ref player)", 0f, 1f);
+        }
         SetRandomTargetPosition();
 
 
         // Встановлюємо початкову позицію корабля залежно від цільової позиції
-        if (targetPosition.x > 0)
-            enemy.transform.position = new Vector3(Random.Range(-12, 0), enemy.transform.position.y, enemy.transform.position.z);
-        else
-            enemy.transform.position = new Vector3(Random.Range(0, 12), enemy.transform.position.y, enemy.transform.position.z);
+        if (!isClient)
+        {
+            if (targetPosition.x > 0)
+                enemy.transform.position = new Vector3(Random.Range(-12, 0), enemy.transform.position.y, enemy.transform.position.z);
+            else
+                enemy.transform.position = new Vector3(Random.Range(0, 12), enemy.transform.position.y, enemy.transform.position.z);
 
-        if (player.position.y > 0)
-            enemy.transform.position = new Vector3(enemy.transform.position.x, -5, enemy.transform.position.z);
-        else
-            enemy.transform.position = new Vector3(enemy.transform.position.x, 5, enemy.transform.position.z);
-
+            if (player.position.y > 0)
+                enemy.transform.position = new Vector3(enemy.transform.position.x, -5, enemy.transform.position.z);
+            else
+                enemy.transform.position = new Vector3(enemy.transform.position.x, 5, enemy.transform.position.z);
+        }
 
 
         AudioSource foundAudioSource = FindAudioSource("Sounds");
@@ -108,7 +121,7 @@ public class EnemyNewcomers : NetworkBehaviour
 
     private void FixedUpdate()
     {
-
+        
         MoveToTargetPosition();        // Рухаємо корабель до цільової позиції
         if (Mathf.Abs(enemyR.position.x) < visibleWidth && Mathf.Abs(enemyR.position.y) < visibleHeight)
         {
