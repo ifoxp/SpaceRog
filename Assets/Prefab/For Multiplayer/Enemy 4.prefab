@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: -2664363022986271391}
   - component: {fileID: 4020546186089465779}
   - component: {fileID: 4059224369551860095}
+  - component: {fileID: -8491596624552408956}
   - component: {fileID: 7135001521155083012}
   m_Layer: 0
   m_Name: Enemy 4
@@ -141,10 +142,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _projectile: {fileID: 5506367298925231081, guid: 5585c5e585c9d78479e1a5afa2c627a4, type: 3}
-  _spawnClip: {fileID: 8300000, guid: 4310474905e266640852f43bd609a1a4, type: 3}
-  _projectileSpeed: 5
-  _cooldown: 2
-  _spawner: {fileID: 4059224369551860093}
+  Gun1: {fileID: 0}
+  Gun2: {fileID: 0}
 --- !u!114 &4020546186089465779
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -159,6 +158,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   health: 1
   explosionPrefab: {fileID: 139366, guid: 66f5cb787bd14d34a8954a8b960238b7, type: 3}
+  targetPosition: {x: 0, y: 0}
+  player: {fileID: 0}
   speedRotate: 5
   speedHorizontal: 7
   speedVertical: 5
@@ -172,6 +173,7 @@ MonoBehaviour:
   gunshotAudioSource: {fileID: 0}
   gunshotSound: {fileID: 8300000, guid: 4310474905e266640852f43bd609a1a4, type: 3}
   deathSound: {fileID: 8300000, guid: 80ca4773e2027024aa5386b4278b65aa, type: 3}
+  isClient: 0
 --- !u!50 &4059224369551860095
 Rigidbody2D:
   serializedVersion: 4
@@ -193,6 +195,20 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
+--- !u!114 &-8491596624552408956
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4059224369551860092}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 877af27a0e1a30d408ec861de88ca64c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  teleportDistance: 0.2
+  interpolationDistance: 0.1
 --- !u!114 &7135001521155083012
 MonoBehaviour:
   m_ObjectHideFlags: 0

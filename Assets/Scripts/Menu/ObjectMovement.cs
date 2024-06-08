@@ -18,6 +18,7 @@ public class ObjectMovement : MonoBehaviour
 
     [SerializeField] private int sceneNowWhy;
 
+
     private void Start()
     {
         SpawnObjects();
@@ -29,6 +30,8 @@ public class ObjectMovement : MonoBehaviour
         MoveObjects();
         MoveXObjects();}
         else GetComponent<ObjectMovement>().enabled = false;
+
+        
     }
 
     private void SpawnObjects()

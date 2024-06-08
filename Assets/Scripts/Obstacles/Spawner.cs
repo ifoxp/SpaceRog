@@ -87,10 +87,14 @@ public class Spawner : NetworkBehaviour
                     // Spawn on the server and synchronize to all clients
                     
                     int sp = Random.Range(Hard, Rannd + Hard);
-                    if(whoSpawn)
+                    if (whoSpawn)
                         spawnBuff.Gun(sp);
                     else
-                        spawnObstacles.Gun(sp,WhereSpawn);
+                    {
+                        spawnObstacles.Gun(sp, WhereSpawn);
+                    }
+
+
 
                 }
                 else

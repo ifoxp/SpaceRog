@@ -9,10 +9,10 @@ public class EnemyDestroyers : NetworkBehaviour
     [SerializeField] private GameObject explosionPrefab;  // Префаб вибуху
 
     private Rigidbody2D rb;                     // Rigidbody2D компонент ворожого корабля
-    private Vector2 targetPosition;             // Позиція, до якої корабель рухається
+    public Vector2 targetPosition;             // Позиція, до якої корабель рухається
     private float timer = 1.75f, timerB = 0;                // Таймер для контролю стрільби
 
-    private Transform player;                   // Посилання на об'єкт гравця
+    public Transform player;                   // Посилання на об'єкт гравця
     [SerializeField] private float speedRotate = 5f;   // Швидкість обертання корабля
     private float screenWidth, screenHeight;
     private float visibleWidth, visibleHeight;
@@ -33,25 +33,29 @@ public class EnemyDestroyers : NetworkBehaviour
 
     [SerializeField] private AudioClip deathSound;
     [SerializeField] private AudioSource gunshotAudioSource;
+
+    public bool isClient = false;
     private void Start()
     {
         float[] IndexD = new float[2];
-        if (PlayerPrefs.GetInt("Difficult") == 0)
+        if (!isClient)
         {
-            IndexD[0] = -2.25f;
-            IndexD[1] = -2.25f;
+            if (PlayerPrefs.GetInt("Difficult") == 0)
+            {
+                IndexD[0] = -2.25f;
+                IndexD[1] = -2.25f;
+            }
+            else if (PlayerPrefs.GetInt("Difficult") == 2)
+            {
+                IndexD[0] = 2.25f;
+                IndexD[1] = 2.25f;
+            }
+            else
+            {
+                IndexD[0] = 0;
+                IndexD[1] = 0;
+            }
         }
-        else if (PlayerPrefs.GetInt("Difficult") == 2)
-        {
-            IndexD[0] = 2.25f;
-            IndexD[1] = 2.25f;
-        }
-        else
-        {
-            IndexD[0] = 0;
-            IndexD[1] = 0;
-        }
-
         speedHorizontal += IndexD[0];
         speedVertical += IndexD[1];
 
@@ -59,6 +63,11 @@ public class EnemyDestroyers : NetworkBehaviour
         spawner = FindObjectOfType<Spawner>();
         rb = GetComponent<Rigidbody2D>();                     // Отримуємо посилання на Rigidbody2D
         player = GameObject.FindGameObjectWithTag("Player").transform;   // Отримуємо посилання на гравця за тегом "Player"
+        if (isClient)
+        {
+            RandomPlayerAgr arg = GetComponent<RandomPlayerAgr>();
+            InvokeRepeating("arg.ChangePlayer(ref player)", 0f, 1f);
+        }
         SetRandomTargetPosition();
 
 
@@ -68,10 +77,13 @@ public class EnemyDestroyers : NetworkBehaviour
         else
             enemy.transform.position = new Vector3(12, enemy.transform.position.y, enemy.transform.position.z);
 
-        if (player.position.y > 0)
-            enemy.transform.position = new Vector3(enemy.transform.position.x, Random.Range(-5, 0), enemy.transform.position.z);
-        else
-            enemy.transform.position = new Vector3(enemy.transform.position.x, Random.Range(0, 5), enemy.transform.position.z);
+
+        
+            if (player.position.y > 0)
+                enemy.transform.position = new Vector3(enemy.transform.position.x, Random.Range(-5, 0), enemy.transform.position.z);
+            else
+                enemy.transform.position = new Vector3(enemy.transform.position.x, Random.Range(0, 5), enemy.transform.position.z);
+        
         AudioSource foundAudioSource = FindAudioSource("Sounds");
         if (foundAudioSource != null)
         {
@@ -193,26 +205,32 @@ public class EnemyDestroyers : NetworkBehaviour
         {
             if (other.gameObject.CompareTag("Bullet") && leave)
             {
-                leave = false;
-                //enemy.GetComponent<CapsuleCollider2D>().enabled = false;
-                // Отримуємо кут повороту ворожого корабля
-                float enemyRotation = Random.Range(0, 360);
-
-                // Створюємо екземпляр анімації вибуху з правильним поворотом
-                GameObject explosion = Instantiate(explosionPrefab, transform.position, Quaternion.Euler(0f, 0f, enemyRotation));
-                PlayDeathSound();
-                Destroy(explosion, 0.6f);  // Знищуємо анімацію вибуху через 0.75 секунди
-
-
-                Destroy(gameObject);  // Знищуємо поточний екземпляр ворожого корабля
-                ScoreManager.Instance.SetScore(scoreForDead);
-                int t = Random.Range(0, (maxMoneyForDead + PlayerPrefs.GetInt("Difficult")));
-
-                SpawnCoins(t);
-                PlayerPrefs.SetInt("Enemys" + $"{PlayerPrefs.GetInt("Difficult")}", PlayerPrefs.GetInt("Enemys" + $"{PlayerPrefs.GetInt("Difficult")}") + 1);
-                PlayerPrefs.SetInt("EnemysDay" + $"{PlayerPrefs.GetInt("Difficult")}", PlayerPrefs.GetInt("EnemysDay" + $"{PlayerPrefs.GetInt("Difficult")}") + 1);
+                EnDeath();
             }
         }
+    }
+
+    public void EnDeath()
+    {
+        leave = false;
+        //enemy.GetComponent<CapsuleCollider2D>().enabled = false;
+        // Отримуємо кут повороту ворожого корабля
+        float enemyRotation = Random.Range(0, 360);
+
+        // Створюємо екземпляр анімації вибуху з правильним поворотом
+        GameObject explosion = Instantiate(explosionPrefab, transform.position, Quaternion.Euler(0f, 0f, enemyRotation));
+        PlayDeathSound();
+        Destroy(explosion, 0.6f);  // Знищуємо анімацію вибуху через 0.75 секунди
+
+
+        Destroy(gameObject);  // Знищуємо поточний екземпляр ворожого корабля
+        ScoreManager.Instance.SetScore(scoreForDead);
+        int t = Random.Range(0, (maxMoneyForDead + PlayerPrefs.GetInt("Difficult")));
+
+        SpawnCoins(t);
+        PlayerPrefs.SetInt("Enemys" + $"{PlayerPrefs.GetInt("Difficult")}", PlayerPrefs.GetInt("Enemys" + $"{PlayerPrefs.GetInt("Difficult")}") + 1);
+        PlayerPrefs.SetInt("EnemysDay" + $"{PlayerPrefs.GetInt("Difficult")}", PlayerPrefs.GetInt("EnemysDay" + $"{PlayerPrefs.GetInt("Difficult")}") + 1);
+
     }
     private void OnCollisionEnter2D(Collision2D other)
     {

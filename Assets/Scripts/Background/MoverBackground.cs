@@ -26,7 +26,7 @@ public class MoverBackground : MonoBehaviour
         int activeSceneIndex = SceneManager.GetActiveScene().buildIndex;
 
         // Перевірка, чи індекс активної сцени не дорівнює 1
-        if (activeSceneIndex == 1)
+        if (activeSceneIndex == 1 || activeSceneIndex == 8)
         {
             Spawner.SetActive(false);
         }

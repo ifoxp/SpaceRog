@@ -97,6 +97,7 @@ GameObject:
   - component: {fileID: 6020792664247655204}
   - component: {fileID: 1577724768766557601}
   - component: {fileID: 6020792664247655211}
+  - component: {fileID: 2170867403208800166}
   - component: {fileID: 7266568646737129972}
   - component: {fileID: 4242066758222268464}
   m_Layer: 0
@@ -204,6 +205,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   health: 3
   explosionPrefab: {fileID: 139366, guid: 660104920388f7944bc9dbcd1a96a756, type: 3}
+  targetPosition: {x: 0, y: 0}
+  player: {fileID: 0}
   speedRotate: 50
   speedHorizontal: 10
   speedVertical: 8
@@ -215,6 +218,7 @@ MonoBehaviour:
   coinScale: {x: 1, y: 1, z: 1}
   deathSound: {fileID: 8300000, guid: 80ca4773e2027024aa5386b4278b65aa, type: 3}
   gunshotAudioSource: {fileID: 0}
+  isClient: 0
 --- !u!50 &6020792664247655211
 Rigidbody2D:
   serializedVersion: 4
@@ -236,6 +240,20 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
+--- !u!114 &2170867403208800166
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6020792664247655208}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 877af27a0e1a30d408ec861de88ca64c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  teleportDistance: 0.2
+  interpolationDistance: 0.1
 --- !u!114 &7266568646737129972
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -264,7 +282,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GlobalObjectIdHash: 0
+  GlobalObjectIdHash: 2673336100
   InScenePlacedSourceGlobalObjectIdHash: 0
   AlwaysReplicateAsRoot: 0
   SynchronizeTransform: 1

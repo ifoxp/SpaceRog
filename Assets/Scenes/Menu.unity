@@ -3155,6 +3155,7 @@ MonoBehaviour:
   xSpeed: 1200
   xGo: 000000
   sceneNowWhy: 0
+  SpawnerBackEnem: {fileID: 160149011}
 --- !u!1 &697565896
 GameObject:
   m_ObjectHideFlags: 0
@@ -4050,6 +4051,7 @@ MonoBehaviour:
   xSpeed: 1200
   xGo: 000000
   sceneNowWhy: 0
+  SpawnerBackEnem: {fileID: 0}
 --- !u!114 &948919959
 MonoBehaviour:
   m_ObjectHideFlags: 0

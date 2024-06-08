@@ -69,25 +69,25 @@ public class EnemyNewcomers : NetworkBehaviour
         if (isClient)
         {
             RandomPlayerAgr arg = GetComponent<RandomPlayerAgr>();
-            InvokeRepeating("arg.ChangePlayer(ref player)", 0f, 1f);
+            InvokeRepeating("arg.ChangePlayer(ref player)", 0f, 3f);
         }
         SetRandomTargetPosition();
 
 
         // Встановлюємо початкову позицію корабля залежно від цільової позиції
-        if (!isClient)
-        {
+        
             if (targetPosition.x > 0)
                 enemy.transform.position = new Vector3(Random.Range(-12, 0), enemy.transform.position.y, enemy.transform.position.z);
             else
                 enemy.transform.position = new Vector3(Random.Range(0, 12), enemy.transform.position.y, enemy.transform.position.z);
 
+
+
             if (player.position.y > 0)
                 enemy.transform.position = new Vector3(enemy.transform.position.x, -5, enemy.transform.position.z);
             else
                 enemy.transform.position = new Vector3(enemy.transform.position.x, 5, enemy.transform.position.z);
-        }
-
+        
 
         AudioSource foundAudioSource = FindAudioSource("Sounds");
         if (foundAudioSource != null)
@@ -201,27 +201,32 @@ public class EnemyNewcomers : NetworkBehaviour
         {
             if (other.gameObject.CompareTag("Bullet") && leave)
             {
-                leave = false;
-                // enemy.GetComponent<CapsuleCollider2D>().enabled = false;
-                // Отримуємо кут повороту ворожого корабля
-                float enemyRotation = Random.Range(0, 360);
-
-                // Створюємо екземпляр анімації вибуху з правильним поворотом
-                GameObject explosion = Instantiate(explosionPrefab, transform.position, Quaternion.Euler(0f, 0f, enemyRotation));
-                PlayDeathSound();
-                Destroy(explosion, 0.6f);  // Знищуємо анімацію вибуху через 0.75 секунди
-
-
-                Destroy(gameObject);  // Знищуємо поточний екземпляр ворожого корабля
-                ScoreManager.Instance.SetScore(scoreForDead);
-                int t = Random.Range(0, (maxMoneyForDead + PlayerPrefs.GetInt("Difficult")));
-
-                SpawnCoins(t);
-                PlayerPrefs.SetInt("Enemys" + $"{PlayerPrefs.GetInt("Difficult")}", PlayerPrefs.GetInt("Enemys" + $"{PlayerPrefs.GetInt("Difficult")}") + 1);
-                PlayerPrefs.SetInt("EnemysDay" + $"{PlayerPrefs.GetInt("Difficult")}", PlayerPrefs.GetInt("EnemysDay" + $"{PlayerPrefs.GetInt("Difficult")}") + 1);
-
+                EnDeath();
             }
         }
+    }
+
+    public void EnDeath()
+    {
+        leave = false;
+        // enemy.GetComponent<CapsuleCollider2D>().enabled = false;
+        // Отримуємо кут повороту ворожого корабля
+        float enemyRotation = Random.Range(0, 360);
+
+        // Створюємо екземпляр анімації вибуху з правильним поворотом
+        GameObject explosion = Instantiate(explosionPrefab, transform.position, Quaternion.Euler(0f, 0f, enemyRotation));
+        PlayDeathSound();
+        Destroy(explosion, 0.6f);  // Знищуємо анімацію вибуху через 0.75 секунди
+
+
+        Destroy(gameObject);  // Знищуємо поточний екземпляр ворожого корабля
+        ScoreManager.Instance.SetScore(scoreForDead);
+        int t = Random.Range(0, (maxMoneyForDead + PlayerPrefs.GetInt("Difficult")));
+
+        SpawnCoins(t);
+        PlayerPrefs.SetInt("Enemys" + $"{PlayerPrefs.GetInt("Difficult")}", PlayerPrefs.GetInt("Enemys" + $"{PlayerPrefs.GetInt("Difficult")}") + 1);
+        PlayerPrefs.SetInt("EnemysDay" + $"{PlayerPrefs.GetInt("Difficult")}", PlayerPrefs.GetInt("EnemysDay" + $"{PlayerPrefs.GetInt("Difficult")}") + 1);
+
     }
     private void OnCollisionEnter2D(Collision2D other)
     {

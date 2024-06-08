@@ -98,6 +98,7 @@ GameObject:
   - component: {fileID: -2013420570398082152}
   - component: {fileID: 7734969560788362434}
   - component: {fileID: 6020792664247655211}
+  - component: {fileID: -1335478985718989697}
   - component: {fileID: -3259541626067039216}
   m_Layer: 0
   m_Name: Enemy A 1
@@ -225,6 +226,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   health: 2
   explosionPrefab: {fileID: 139366, guid: 4a7b5d0bbc2191441ac44223fb18f463, type: 3}
+  targetPosition: {x: 0, y: 0}
+  player: {fileID: 0}
   speedRotate: 3
   speedHorizontal: 5
   speedVertical: 5
@@ -236,6 +239,7 @@ MonoBehaviour:
   coinScale: {x: 1, y: 1, z: 1}
   deathSound: {fileID: 8300000, guid: 80ca4773e2027024aa5386b4278b65aa, type: 3}
   gunshotAudioSource: {fileID: 0}
+  isClient: 0
 --- !u!50 &6020792664247655211
 Rigidbody2D:
   serializedVersion: 4
@@ -257,6 +261,20 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
+--- !u!114 &-1335478985718989697
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6020792664247655208}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 877af27a0e1a30d408ec861de88ca64c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  teleportDistance: 0.2
+  interpolationDistance: 0.1
 --- !u!114 &-3259541626067039216
 MonoBehaviour:
   m_ObjectHideFlags: 0

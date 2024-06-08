@@ -62,7 +62,7 @@ public class PlayerTransform : NetworkBehaviour {
     private float _rotVelZ;
 
     private void ConsumeState() {
-        // Here you'll find the cheapest, dirtiest interpolation you'll ever come across. Please do better in your game
+        
         _rb.MovePosition(Vector3.SmoothDamp(_rb.position, _playerState.Value.Position, ref _posVel, _cheapInterpolationTime));
 
         transform.rotation = Quaternion.Euler(

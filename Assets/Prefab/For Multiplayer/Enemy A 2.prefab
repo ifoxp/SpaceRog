@@ -95,10 +95,11 @@ GameObject:
   - component: {fileID: 6020792664247655209}
   - component: {fileID: 6020792664247655210}
   - component: {fileID: 6020792664247655204}
+  - component: {fileID: 1422576872537072813}
   - component: {fileID: 7734969560788362434}
   - component: {fileID: 6020792664247655211}
+  - component: {fileID: 8839984991985644190}
   - component: {fileID: -71849139665257779}
-  - component: {fileID: 1422576872537072813}
   m_Layer: 0
   m_Name: Enemy A 2
   m_TagString: Enemy
@@ -190,6 +191,27 @@ CapsuleCollider2D:
   m_Offset: {x: -0.8, y: 2.9}
   m_Size: {x: 60, y: 60}
   m_Direction: 1
+--- !u!114 &1422576872537072813
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6020792664247655208}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  GlobalObjectIdHash: 3891937324
+  InScenePlacedSourceGlobalObjectIdHash: 0
+  AlwaysReplicateAsRoot: 0
+  SynchronizeTransform: 1
+  ActiveSceneSynchronization: 0
+  SceneMigrationSynchronization: 1
+  SpawnWithObservers: 1
+  DontDestroyWithOwner: 0
+  AutoObjectParentSync: 1
 --- !u!114 &7734969560788362434
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -204,6 +226,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   health: 2
   explosionPrefab: {fileID: 139366, guid: 4a7b5d0bbc2191441ac44223fb18f463, type: 3}
+  targetPosition: {x: 0, y: 0}
+  player: {fileID: 0}
   speedRotate: 4
   speedHorizontal: 7
   speedVertical: 7
@@ -215,6 +239,7 @@ MonoBehaviour:
   coinScale: {x: 1, y: 1, z: 1}
   deathSound: {fileID: 8300000, guid: 80ca4773e2027024aa5386b4278b65aa, type: 3}
   gunshotAudioSource: {fileID: 0}
+  isClient: 0
 --- !u!50 &6020792664247655211
 Rigidbody2D:
   serializedVersion: 4
@@ -236,6 +261,20 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
+--- !u!114 &8839984991985644190
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6020792664247655208}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 877af27a0e1a30d408ec861de88ca64c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  teleportDistance: 0.2
+  interpolationDistance: 0.1
 --- !u!114 &-71849139665257779
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -252,24 +291,3 @@ MonoBehaviour:
   x2: 6.666667
   baseScale: 0.015
   PlusMinus: -1
---- !u!114 &1422576872537072813
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6020792664247655208}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  GlobalObjectIdHash: 0
-  InScenePlacedSourceGlobalObjectIdHash: 0
-  AlwaysReplicateAsRoot: 0
-  SynchronizeTransform: 1
-  ActiveSceneSynchronization: 0
-  SceneMigrationSynchronization: 1
-  SpawnWithObservers: 1
-  DontDestroyWithOwner: 0
-  AutoObjectParentSync: 1
